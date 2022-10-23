@@ -12,13 +12,22 @@ import java.util.stream.Collectors;
  */
 public class App 
 {
-    private static final String MY_API_URL = "http://localhost:3000/departments";
-    private static final String MY_API_URL1 = "http://localhost:3000/users";
-    private static final String MY_API_URL2 = "http://localhost:3000/users_log";
     private static final String MY_API_URL3 = "https://jsonplaceholder.typicode.com/posts";
-    private static final String MY_API_URL4 = "http://localhost:3000/departments?id=eq.5";
-    private static final String MY_API_URL5 = "http://localhost:3000/departments?id=gte.5";
-    private static final String MY_API_URL6 = "http://localhost:3000/departments?id=gte.5&id=lte.7";
+
+    private static final String localhost = "http://192.168.50.54:3000";
+    private static final String MY_API_URL = localhost+"/departments";
+    private static final String MY_API_URL1 = localhost+"/users";
+    private static final String MY_API_URL2 = localhost+"/users_log";
+    private static final String MY_API_URL4 = localhost+"/departments?id=eq.5";
+    private static final String MY_API_URL5 = localhost+"/departments?id=gte.5";
+    private static final String MY_API_URL6 = localhost+"/departments?id=gte.5&id=lte.7";
+
+//    private static final String MY_API_URL = "http://localhost:3000/departments";
+//    private static final String MY_API_URL1 = "http://localhost:3000/users";
+//    private static final String MY_API_URL2 = "http://localhost:3000/users_log";
+//    private static final String MY_API_URL4 = "http://localhost:3000/departments?id=eq.5";
+//    private static final String MY_API_URL5 = "http://localhost:3000/departments?id=gte.5";
+//    private static final String MY_API_URL6 = "http://localhost:3000/departments?id=gte.5&id=lte.7";
 
     public static void main( String[] args ) {
         System.out.println("Hello http-client");
@@ -45,7 +54,8 @@ public class App
             System.out.println("----------------------------------");
             Map d = (Map) ja.toList().stream()
                     .filter(dept -> (Integer) ((Map) dept).get("id") == 5)
-                    .toList()
+                    .collect(Collectors.toList())
+//                    .toList()
                     .get(0);
             System.out.println("id=" + d.get("id"));
             System.out.println("name=" + d.get("name"));
@@ -55,7 +65,8 @@ public class App
             System.out.println("----------------------------------");
             ja.toList().stream()
                     .filter(dept -> betweenInts((Integer) ((Map) dept).get("id"), 5, 7))
-                    .toList()
+                    .collect(Collectors.toList())
+//                    .toList()
                     .forEach(dept -> {
                         System.out.println("id=" + ((Map) dept).get("id"));
                         System.out.println("name=" + ((Map) dept).get("name"));
@@ -74,7 +85,8 @@ public class App
             System.out.println("----------------------------------");
             ja.toList().stream()
                     .filter(dept -> inSetOfInts((Integer) ((Map) dept).get("id"), new int[]{1, 3, 5, 7}))
-                    .toList()
+                    .collect(Collectors.toList())
+//                    .toList()
                     .forEach(dept -> {
                         System.out.println("id=" + ((Map) dept).get("id"));
                         System.out.println("name=" + ((Map) dept).get("name"));
