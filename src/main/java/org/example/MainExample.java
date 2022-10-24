@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.net.*;
 import java.net.http.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainExample {
@@ -32,10 +33,9 @@ public class MainExample {
         int len = array.size();
         System.out.println(len);
         int count = 0;
-        for (Object oo:array) {
-            Map o = (Map)oo;
-//            System.out.println(o.get("id"));
-            if ((Long)(o.get("id")) >= Long.valueOf(5)) {
+        for (int i=0;i<array.size();i++) {
+            HashMap o = (HashMap)array.get(i);
+            if (((Long)o.get("id")) >= Long.valueOf(5)) {
                 System.out.println("name=" + o.get("name"));
                 count++;
             }
