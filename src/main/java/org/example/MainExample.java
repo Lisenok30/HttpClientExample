@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.net.*;
 import java.net.http.*;
+import java.util.Map;
 
 public class MainExample {
     private static final String localhost = "http://192.168.50.54:3000";
@@ -26,10 +27,20 @@ public class MainExample {
         int status = response.statusCode();
         String body = ((String) response.body()).trim();
         JSONParser jp = new JSONParser();
-        Object obj = jp.parse(body);
-        JSONArray array = (JSONArray)obj;
+        JSONArray array = (JSONArray)jp.parse(body);
+//        JSONArray array = (JSONArray)obj;
         int len = array.size();
         System.out.println(len);
+        int count = 0;
+        for (Object oo:array) {
+            Map o = (Map)oo;
+//            System.out.println(o.get("id"));
+            if ((Long)(o.get("id")) >= Long.valueOf(5)) {
+                System.out.println("name=" + o.get("name"));
+                count++;
+            }
+        }
+        System.out.println(count);
         JSONObject jo0 = (JSONObject)array.get(0);
         JSONObject jo1 = (JSONObject)array.get(1);
         JSONObject jo2 = (JSONObject)array.get(2);
